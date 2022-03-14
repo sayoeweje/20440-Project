@@ -1,6 +1,13 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
 import scipy as sp
 from pylab import *
 import numpy as np
+import matplotlib as mpl
 from matplotlib import pyplot as plt
 from matplotlib import cm
 import networkx as nx
@@ -11,6 +18,11 @@ from IPython.display import clear_output
 import random
 from Bio.PDB.PDBParser import PDBParser
 from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.patches as mpatches
+
+
+# In[2]:
+
 
 parser = PDBParser()
 structure_id = "Cas9"
@@ -21,6 +33,10 @@ model = structure[0]
 protein = model["A"]
 guide = model["B"]
 target_DNA = model["C"]
+
+
+# In[3]:
+
 
 graph = nx.Graph()
 locations = []
@@ -64,11 +80,39 @@ for x in range(len(locations)):
         if distance < 8.5 and abs(x-y) > 1:
             graph.add_edge(residue[0], residue_test[0], weight=distance)
 
-fig = figure(num=1, figsize=(10, 10), dpi=80)
+
+# In[4]:
+
+
+fig = figure(num=1, figsize=(10, 15), dpi=300)
 ax  = fig.add_subplot(111)
 pos = nx.get_node_attributes(graph,'pos')
 color = nx.get_node_attributes(graph, 'color')
+cmap = plt.cm.coolwarm
 edges, weights = zip(*nx.get_edge_attributes(graph, 'weight').items())
 g = nx.draw_networkx(graph, pos, node_size = 20, with_labels = False, 
-                     node_color = color.values(), edge_color=weights, edge_cmap=plt.cm.coolwarm)
+                     node_color = color.values(), edge_color=weights, edge_cmap=cmap)
+
+handles, labels = ax.get_legend_handles_labels()
+handles.append(mpatches.Patch(color='grey',label='Cas9 residues'))
+handles.append(mpatches.Patch(color='orange',label='sgRNA'))
+handles.append(mpatches.Patch(color='green',label='Target DNA strand'))
 ax.set_axis_off()
+ax.set_title("2D Representation of Cas9 Structural Network")
+ax.legend(handles=handles, loc='best')
+ax.margins(x=0, y=0)
+
+norm = mpl.colors.Normalize(vmin=0,vmax=8.5)
+fig.colorbar(cm.ScalarMappable(norm=norm, cmap=cmap), ax=ax, 
+             orientation='horizontal', location='bottom', 
+             label='Distance between Cas9 residues (Angstroms)', pad=0)
+
+plt.savefig("2D Representation of Cas9 Structural Network.pdf", bbox_inches = 'tight',
+    pad_inches = 0)
+
+
+# In[ ]:
+
+
+
+
