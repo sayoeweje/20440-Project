@@ -50,5 +50,4 @@ In order to run the code, the user needs to have an IDE that can run python scri
 user also must also have "4008.pdb" in the same folder as the python script.
 
 The packages necessary are:
-- 
 
