@@ -15,7 +15,7 @@ awk '{print $1"\t"NR; print$2"\t"NR+1}' "$out"_polypeptidePairs | uniq > "$out"_
 
 echo "Adding hydrogens..."
 #Ensure that this line reflects the path of your Phenix installation.
-source ../../../../../../../../Applications/phenix-1.14-3260/phenix_env.sh 
+source /Applications/phenix-1.20.1-4487/phenix_env.sh 
 phenix.reduce -NOFLIP -Quiet $out".pdb" > $out"_H.pdb"
 mv $out"_H.pdb" $out".pdb"
 

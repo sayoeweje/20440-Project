@@ -291,8 +291,10 @@ def isH(atom):
 
 def isNeighbor(atom1,atom2):
     if abs(int(atom1.split("-")[1][0:-1])-int(atom2.split("-")[1][0:-1])) == 1:
+        print(atom1, atom2)
         return True
     else:
+        print(atom1, atom2)
         return False
 
 def isAcceptor(atom):
@@ -356,8 +358,6 @@ currentAngle = -1
 for i in range(len(phifile)):
     line = phifile[i]
     if line[0:3]=="ASG":
-        if line[12:15].strip()[-1] in string.uppercase:
-            continue
         phi[line[5:8]+line[11:15].strip()+line[9]] = line[42:50].strip()
         secStruct = line[33:42].strip()
         if line[5:8] == "PRO" and line[33:42].strip() == "aHelix":
@@ -416,8 +416,6 @@ prevStruct = ""
 for i in range(len(phifile)):
     line = phifile[i]
     if line[0:3]=="ASG":
-        if line[12:15].strip()[-1] in string.uppercase:
-            continue
         secStruct = line[33:42].strip()
         if secStruct == "aHelix" and secStruct == prevStruct:
             secStructure.write(line[5:8]+line[11:15].lstrip()+line[9]+"\t"+secStruct+str(counter)+"\t"+line[42:51].strip()+"\n")
@@ -440,8 +438,6 @@ for line in areafile:
 
 for line in phifile:
     if line[0:3] == "ASG":
-        if line[12:15].strip()[-1] in string.uppercase:
-            continue
         if line[5:8] in area.keys():
             rsafile.write(line[5:8]+line[12:15].strip()+line[9]+"\t"+str(float(line[64:69].strip())/area[line[5:8]])+"\n")
 
@@ -504,8 +500,6 @@ for line in pdbfile:
     if chainname == "":
         chainname = "X"
     residueposition = line[22:26]; residueposition=residueposition.lstrip().strip()
-    if line[26] in string.uppercase:
-        continue
     if (not isAminoAcid(residuename) or not residueposition.isdigit()) and (not isDNA(residuename) and (not line[0:6]=="HETATM")):
         continue
     #Make dictionary of centroids

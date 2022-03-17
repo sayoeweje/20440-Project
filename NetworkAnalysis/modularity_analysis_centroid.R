@@ -1,5 +1,8 @@
+install.packages("igraph", repos = "http://cran.us.r-project.org")
 library(igraph)
+install.packages("stats", repos = "http://cran.us.r-project.org")
 library(stats)
+
 args <- commandArgs(trailingOnly = TRUE)
 
 ##read in data

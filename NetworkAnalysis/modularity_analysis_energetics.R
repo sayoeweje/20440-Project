@@ -1,9 +1,10 @@
 args <- commandArgs(trailingOnly = TRUE)
 
 ##Load libraries
+install.packages("igraph", repos = "http://cran.us.r-project.org")
 library(igraph)
+install.packages("stats", repos = "http://cran.us.r-project.org")
 library(stats)
-
 ##Initialize keywords
 # keyword is the base filename
 keyword = args[1]
