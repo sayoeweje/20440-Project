@@ -1,0 +1,13 @@
+    2700 4oo8/4oo8_AAorder
+    2464 4oo8/4oo8_Bfactor
+      35 4oo8/4oo8_H.eff
+     754 4oo8/4oo8_allSalt
+    2777 4oo8/4oo8_net
+    2681 4oo8/4oo8_polypeptidePairs
+      96 4oo8/4oo8_saltBridges_Barlow
+    2464 4oo8/4oo8_secondaryStructure
+    2464 4oo8/4oo8_secondaryStructure2
+       0 4oo8/4oo8_vdw2_noRepulse
+       0 4oo8/4oo8_vdw_noRepulse
+       0 4oo8/4oo8_waterBonds
+   16435 total
