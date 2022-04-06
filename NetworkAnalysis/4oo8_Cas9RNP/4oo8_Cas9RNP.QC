@@ -1,26 +1,31 @@
-    1419 4oo8_Cas9RNP/4oo8_Cas9RNP_AAorder
+    1301 4oo8_Cas9RNP/4oo8_Cas9RNP_AAorder
     1301 4oo8_Cas9RNP/4oo8_Cas9RNP_Bfactor
-     177 4oo8_Cas9RNP/4oo8_Cas9RNP_DNA
+     188 4oo8_Cas9RNP/4oo8_Cas9RNP_DNA
       35 4oo8_Cas9RNP/4oo8_Cas9RNP_H.eff
+     874 4oo8_Cas9RNP/4oo8_Cas9RNP_RNA
+    2249 4oo8_Cas9RNP/4oo8_Cas9RNP_allEdges
      367 4oo8_Cas9RNP/4oo8_Cas9RNP_allSalt
-    4298 4oo8_Cas9RNP/4oo8_Cas9RNP_centroidNetLigand
+    4251 4oo8_Cas9RNP/4oo8_Cas9RNP_centroidNetLigand
    13724 4oo8_Cas9RNP/4oo8_Cas9RNP_centroidNetSC
        0 4oo8_Cas9RNP/4oo8_Cas9RNP_disulf
-     814 4oo8_Cas9RNP/4oo8_Cas9RNP_hb
+     815 4oo8_Cas9RNP/4oo8_Cas9RNP_hb
        1 4oo8_Cas9RNP/4oo8_Cas9RNP_hbtmp1
        1 4oo8_Cas9RNP/4oo8_Cas9RNP_hbtmp2
-   49939 4oo8_Cas9RNP/4oo8_Cas9RNP_ligand
+   59853 4oo8_Cas9RNP/4oo8_Cas9RNP_ligand
        0 4oo8_Cas9RNP/4oo8_Cas9RNP_metal
-   21498 4oo8_Cas9RNP/4oo8_Cas9RNP_net
+   22268 4oo8_Cas9RNP/4oo8_Cas9RNP_net
       10 4oo8_Cas9RNP/4oo8_Cas9RNP_pication2
       30 4oo8_Cas9RNP/4oo8_Cas9RNP_pipi2
-    1408 4oo8_Cas9RNP/4oo8_Cas9RNP_polypeptidePairs
+    1292 4oo8_Cas9RNP/4oo8_Cas9RNP_polypeptidePairs
       46 4oo8_Cas9RNP/4oo8_Cas9RNP_saltBridges_Barlow
+    1378 4oo8_Cas9RNP/4oo8_Cas9RNP_scoresEnergetics
+    1378 4oo8_Cas9RNP/4oo8_Cas9RNP_scoresEnergeticsZ
     1301 4oo8_Cas9RNP/4oo8_Cas9RNP_secondaryStructure
     1301 4oo8_Cas9RNP/4oo8_Cas9RNP_secondaryStructure2
+    2914 4oo8_Cas9RNP/4oo8_Cas9RNP_uniqueEdges
    14083 4oo8_Cas9RNP/4oo8_Cas9RNP_vdw
     5272 4oo8_Cas9RNP/4oo8_Cas9RNP_vdw2
     5272 4oo8_Cas9RNP/4oo8_Cas9RNP_vdw2_noRepulse
    13945 4oo8_Cas9RNP/4oo8_Cas9RNP_vdw_noRepulse
        7 4oo8_Cas9RNP/4oo8_Cas9RNP_waterBonds
-  136249 total
+  155457 total

@@ -7,7 +7,6 @@ args <- commandArgs(trailingOnly = TRUE)
 
 #Load monomer
 data1 = read.table(dir("./","_scoresEnergetics$"),header=T,row.names=1)
-print(data1[,1:2])
 data1Z = as.data.frame(apply(data1,2,function(x){return(scale(as.numeric(x)))}))
 rownames(data1Z) = rownames(data1)
 data1Z[is.na(data1Z)] = 0
@@ -20,8 +19,8 @@ data2Z = data2Z[rownames(data1Z),]
 data2 = data2[rownames(data1),]
 
 #Load multimer
-data1Multimer = read.table(dir("args[1]","_scoresEnergetics$",full.names=TRUE),header=T,row.names=1)
-data2Multimer = read.table(dir(paste("args[1]","Centroid",sep="/"),"_scoresCentroid$",full.names=TRUE),header=T,row.names=1)
+data1Multimer = read.table(dir("./","_scoresEnergetics$"),header=T,row.names=1)
+data2Multimer = read.table(dir("./Centroid","_scoresCentroid$", full.names=TRUE),header=T,row.names=1)
 data2Multimer = data2Multimer[rownames(data1Multimer),]
 data1MultimerZ = as.data.frame(apply(data1Multimer,2,function(x){return(scale(as.numeric(x)))}))
 rownames(data1MultimerZ) = rownames(data1Multimer)
@@ -54,7 +53,6 @@ for (i in 1:length(rownames(data1MultimerZ))) {
 }
 
 allAcids = unique(c(acidsMonomer,acidsMultimer))
-
 #SecondOrderIntermodularDegree is the average of the multimer only
 SecondOrderIntermodularDegree_ALL = (data1MultimerZ[,"SecondOrderIntermodularDegreeSTRIDE_sidechainMULTIMER"]+data1MultimerZ[,"SecondOrderIntermodularDegreeSTRIDEMULTIMER"]+data2MultimerZ[,"SecondOrderIntermodularDegreeSTRIDEMULTIMERCENTROIDSC"]+data2MultimerZ[,"SecondOrderIntermodularDegreeWALKTRAPMULTIMERCENTROIDSC"])/4
 SecondOrderIntermodularDegree_AVERAGE = tapply(SecondOrderIntermodularDegree_ALL,as.factor(acidsMultimer),mean)

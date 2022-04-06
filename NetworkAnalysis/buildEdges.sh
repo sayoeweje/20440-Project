@@ -53,6 +53,7 @@ awk '{split($1,x,"-");split($2,y,"-");print x[1]x[2]"\t"y[1]y[2]"\t"$3"\t"$10"\t
 awk '{split($1,x,"-");split($2,y,"-");print x[1]x[2]"\t"y[1]y[2]"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7}' $out"_waterBonds" >> $out"_net"
 awk '{split($1,x,"-");split($2,y,"-");print x[1]x[2]"\t"y[1]y[2]"\t"$3"\t"3"\tMETAL\t"x[3]"\t"y[3]}' $out"_metal" >> $out"_net"
 awk '{split($1,x,"-");split($2,y,"-");print x[1]x[2]"\t"y[1]y[2]"\tMC"$3"\t10\tDNA\tNT\t"x[3]}' $out"_DNA" >> $out"_net"
+awk '{split($1,x,"-");split($2,y,"-");print x[1]x[2]"\t"y[1]y[2]"\tMC"$3"\t10\tRNA\tNT\t"x[3]}' $out"_RNA" >> $out"_net"
 
 
 awk '{split($1,x,"-");if(s[x[1]"\t"x[2]]==""&&s[x[2]"\t"x[1]]==""){s[x[1]"\t"x[2]]=$2;next;}if(s[x[1]"\t"x[2]]!=""&&s[x[2]"\t"x[1]]==""){s[x[1]"\t"x[2]]=s[x[1]"\t"x[2]]+$2;next;}if(s[x[1]"\t"x[2]]==""&&s[x[2]"\t"x[1]]!=""){s[x[2]"\t"x[1]]=s[x[2]"\t"x[1]]+$2}}END{for(i in s){if(s[i]!=""&&s[i]>0){print i"\t"s[i]}}}' $out"_vdw2" > $out"tmp"

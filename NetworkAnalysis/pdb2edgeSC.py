@@ -334,6 +334,12 @@ def isDNA(acid):
     else:
         return(False)
 
+def isRNA(acid):
+    if acid in ["G","C","A","U"]:
+        return(True)
+    else:
+        return(False)
+
 ##open pdb file
 pdbfile = open(sys.argv[1],'r').readlines()
 
@@ -500,7 +506,7 @@ for line in pdbfile:
     if chainname == "":
         chainname = "X"
     residueposition = line[22:26]; residueposition=residueposition.lstrip().strip()
-    if (not isAminoAcid(residuename) or not residueposition.isdigit()) and (not isDNA(residuename) and (not line[0:6]=="HETATM")):
+    if (not isAminoAcid(residuename) or not residueposition.isdigit()) and (not line[0:6]=="HETATM") and (not isDNA(residuename)) and (not isRNA(residuename)):
         continue
     #Make dictionary of centroids
     if not atomname in atomicWeights.keys():
@@ -533,7 +539,7 @@ for line in pdbfile:
         if (not atomname in ["C","O","N","CA"] or (atomname == "CA" and residuename == "GLY")):
         #if atomname in uniqueAtoms[residuename]:
             centroid[tmpResidue] = [sum(tmpX)/float(totalWeight),sum(tmpY)/float(totalWeight),sum(tmpZ)/float(totalWeight)]
-    if isAminoAcid(residuename) or line[17:20]=="HOH" or (line[17:20].lstrip().strip() in metals) or isDNA(residuename):
+    if isAminoAcid(residuename) or line[17:20]=="HOH" or (line[17:20].lstrip().strip() in metals) or isDNA(residuename) or isRNA(residuename):
         coords[getResidue(line)+"-"+getAtom(line)]=numpy.array(getXYZ(line))
         coordsvec.append(getXYZ(line))
         subunits.append(chainname)
@@ -548,11 +554,8 @@ for line in pdbfile:
                 chain[getResidue(line)+"-"+getAtom(line)] = "MC"
         else:
             chain[getResidue(line)+"-"+getAtom(line)] = "SC"
-    if line[0:6]=="HETATM" and (not (line[17:20]=="HOH") and not (line[17:20].lstrip().strip() in metals)):
+    if isDNA(residuename): 
         ligands.append(residuename+"-"+residueposition+chainname)    
-        ligandCoords[getResidue(line)+"-"+getAtom(line)]=numpy.array(getXYZ(line))
-    if isDNA(residuename):
-        ligands.append(residuename+"-"+residueposition+chainname)
         ligandCoords[getResidue(line)+"-"+getAtom(line)]=numpy.array(getXYZ(line))
     if getAtom(line) == "CA":
         bfactor.write(residuename+residueposition+chainname+"\t"+getBfactor(line)+"\n")
@@ -766,6 +769,8 @@ for donor in allatoms:
     if not dH in hydrogen:
         continue
     if isDNA(donor.split("-")[0]):
+        continue
+    if isRNA(donor.split("-")[0]):
         continue
     dA = donor.split("-")[0]+"-"+donor.split("-")[1]+"-"+hydrogen[dH]
     if not isDonor(dA):
@@ -1254,7 +1259,7 @@ scores=[]
 vdw2={}
 scores2=[]
 for atom1 in allatoms:
-    if "HOH" in atom1 or atom1.split("-")[0] in metals or isDNA(atom1.split("-")[0]) or not isAminoAcid(atom1.split("-")[0]):
+    if "HOH" in atom1 or atom1.split("-")[0] in metals or isRNA(atom1.split("-")[0]) or isDNA(atom1.split("-")[0]) or not isAminoAcid(atom1.split("-")[0]):
         continue
     #if isH(atom1):
     #    continue
@@ -1343,7 +1348,7 @@ for atom1 in allatoms:
     if atom1.split("-")[0] in metals:
         metal2atom=[]
         for atom2 in neighboringAtoms[atom1]:
-            if "HOH" in atom2 or isDNA(atom2.split("-")[0]):
+            if "HOH" in atom2 or isRNA(atom2.split("-")[0]) or isDNA(atom2.split("-")[0]):
                 continue
             if not atom2.split("-")[0] in metals:
                 if atom2.split("-")[2] == "O":
@@ -1481,6 +1486,43 @@ out = open(sys.argv[1].replace(".pdb","_DNA"),'w')
 for pair in DNAbindingPairs:
     out.write(pair[0]+"\t"+pair[1]+"\t"+chain[pair[1]]+"\n")
 
+print(DNAbindingPairs)
+out.close()
+
+##RNA
+#Omega is set to 90
+print("Starting RNA bonds...")
+
+RNAbindingPairs = []
+
+for atom1 in allatoms:
+    if isRNA(atom1.split("-")[0]):
+        nucleotide = atom1
+        for atom2 in neighboringAtoms[nucleotide]:
+            if not isRNA(atom2.split("-")[0]) and not "HOH" in atom2:
+            #Figure out if atom2 and nucleotide interact
+                bound = False
+                if ("N" in nucleotide.split("-")[2] and (isDonor(atom2) or isAcceptor(atom2))) or ("O"in nucleotide.split("-")[2] and (isDonor(atom2) or isAcceptor(atom2))) or (("N" in nucleotide.split("-")[2] or "O" in nucleotide.split("-")[2]) and "S" in atom2.split("-")[2]) or ("C" in nucleotide.split("-")[2] and "O" in atom2.split("-")[2] and isAcceptor(atom2)) or ("O" in nucleotide.split("-")[2] and atom2.split("-")[2] in ["NZ","NH1","NH2","OD1","OD2","OE1","OE2"]) or ("C" in nucleotide.split("-")[2] and "C" in atom2.split("-")[2]):
+                    for atom3 in neighboringAtoms[nucleotide]:
+                        if atom3==atom2 or isH(atom3):
+                            continue
+                        vector1 = [coords[nucleotide][0]-coords[atom3][0],coords[nucleotide][1]-coords[atom3][1],coords[nucleotide][2]-coords[atom3][2]]
+                        vector2 = [coords[atom2][0]-coords[atom3][0],coords[atom2][1]-coords[atom3][1],coords[atom2][2]-coords[atom3][2]]
+                        omega = numpy.degrees(angle(vector1,vector2))
+                        if omega <= 90:
+                            bound = True
+                        else:
+                            bound = False
+                            break
+                if bound:
+                    RNAbindingPairs.append([nucleotide,atom2])
+                        
+
+out = open(sys.argv[1].replace(".pdb","_RNA"),'w')
+for pair in RNAbindingPairs:
+    out.write(pair[0]+"\t"+pair[1]+"\t"+chain[pair[1]]+"\n")
+
+print(RNAbindingPairs)
 out.close()
 
 ##Ligands
