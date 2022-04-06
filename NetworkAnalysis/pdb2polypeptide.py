@@ -11,7 +11,8 @@ Achain = ""
 Bchain = ""
 
 def isResidue(residue):
-    if residue in ["ARG","HIS","LYS","ASP","GLU","SER","THR","ASN","GLN","CYS","PRO","GLY","ALA","VAL","ILE","LEU","MET","PHE","TYR","TRP"]:
+    if residue in ["ARG","HIS","LYS","ASP","GLU","SER","THR","ASN","GLN","CYS","PRO","GLY",
+    "ALA","VAL","ILE","LEU","MET","PHE","TYR","TRP", "G", "C", "A", "U", "DG", "DC", "DA", "DT"]:
         return(True)
     else:
         return(False)

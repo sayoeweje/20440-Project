@@ -2,6 +2,7 @@
     1301 4oo8_Cas/4oo8_Cas_Bfactor
        0 4oo8_Cas/4oo8_Cas_DNA
       35 4oo8_Cas/4oo8_Cas_H.eff
+    2250 4oo8_Cas/4oo8_Cas_allEdges
      367 4oo8_Cas/4oo8_Cas_allSalt
        0 4oo8_Cas/4oo8_Cas_centroidNetLigand
    13378 4oo8_Cas/4oo8_Cas_centroidNetSC
@@ -16,11 +17,14 @@
       30 4oo8_Cas/4oo8_Cas_pipi2
     1292 4oo8_Cas/4oo8_Cas_polypeptidePairs
       46 4oo8_Cas/4oo8_Cas_saltBridges_Barlow
+    1302 4oo8_Cas/4oo8_Cas_scoresEnergetics
+    1302 4oo8_Cas/4oo8_Cas_scoresEnergeticsZ
     1301 4oo8_Cas/4oo8_Cas_secondaryStructure
     1301 4oo8_Cas/4oo8_Cas_secondaryStructure2
+    2916 4oo8_Cas/4oo8_Cas_uniqueEdges
    14084 4oo8_Cas/4oo8_Cas_vdw
     5272 4oo8_Cas/4oo8_Cas_vdw2
     5272 4oo8_Cas/4oo8_Cas_vdw2_noRepulse
    13946 4oo8_Cas/4oo8_Cas_vdw_noRepulse
        7 4oo8_Cas/4oo8_Cas_waterBonds
-   80941 total
+   88711 total
