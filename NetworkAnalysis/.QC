@@ -1,4 +1,5 @@
        0 _AAorder
+       0 _centroidNetSC
        0 _net
        0 _secondaryStructure
        0 _vdw2_noRepulse

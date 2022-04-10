@@ -554,7 +554,7 @@ for line in pdbfile:
                 chain[getResidue(line)+"-"+getAtom(line)] = "MC"
         else:
             chain[getResidue(line)+"-"+getAtom(line)] = "SC"
-    if isDNA(residuename): 
+    if isDNA(residuename) or isRNA(residuename): 
         ligands.append(residuename+"-"+residueposition+chainname)    
         ligandCoords[getResidue(line)+"-"+getAtom(line)]=numpy.array(getXYZ(line))
     if getAtom(line) == "CA":
@@ -768,9 +768,7 @@ for donor in allatoms:
     dH = donor.split("-")[0]+"-"+donor.split("-")[2]
     if not dH in hydrogen:
         continue
-    if isDNA(donor.split("-")[0]):
-        continue
-    if isRNA(donor.split("-")[0]):
+    if isDNA(donor.split("-")[0]) or isRNA(donor.split("-")[0]):
         continue
     dA = donor.split("-")[0]+"-"+donor.split("-")[1]+"-"+hydrogen[dH]
     if not isDonor(dA):

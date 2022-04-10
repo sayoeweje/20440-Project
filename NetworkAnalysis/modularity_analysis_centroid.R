@@ -18,6 +18,7 @@ secondaryStructure2 = FALSE
 sidechainMode = TRUE ##build network of just SCSC, SCMC and MCSC. Still use unique atoms for the _uniqueAtoms directed plots
 uniqueAtomsMode = FALSE ##build network of just unique atoms (each edge has to have at least 1). Still use unique atoms for the _uniqueAtoms directed plots
 useDNA=TRUE
+useRNA=TRUE
 uniqueAtomsUnbiased=FALSE
 uniqueAtomsGaurav=FALSE
 uniqueAtomsOLD=FALSE
@@ -120,14 +121,14 @@ addTerminalDetails = function(data,largerdata) {
         if (data[i,6] %in% terminalAtoms[[acid1]]) {
             code1 = 1
         }
-        if (data[i,5] == "DNA" & useDNA==TRUE) {
+        if ((data[i,5] == "DNA" & useDNA==TRUE) | (data[i,5] == "RNA" & useRNA==TRUE)){
             code1 = 1
         }
         allsubdata = matrix(largerdata[largerdata[,2]==data[i,2],],ncol=7)
         if (data[i,7] %in% terminalAtoms[[acid2]]) {
             code2 = 1
         }
-        if (data[i,5] == "DNA" & useDNA==TRUE) {
+        if ((data[i,5] == "DNA" & useDNA==TRUE) | (data[i,5] == "RNA" & useRNA==TRUE)){
             code2 = 1
         }
         if (data[i,5]=="PICATION"|data[i,5]=="PIPI") {
@@ -214,6 +215,7 @@ getAcid = function(residue) {
 ## read in data ##
 ##################
 data_all = as.matrix(read.table(args[1]))[,1:7]
+print(data_all)
 if(removeWaters) {
     y=c(grep("HOH",data_all[,1]),grep("HOH",data_all[,2]))
     if(length(y)>0) {
@@ -308,8 +310,8 @@ for (node in nodes) {
 
 
 
-#Give DNA attributes
-if ("DNA" %in% data_all[,5]) {
+#Give DNA/RNA attributes
+if (("DNA" %in% data_all[,5]) | ("RNA" %in% data_all[,5]))  {
     for (i in 1:nrow(data_all)) {
         if (data_all[i,5]=="DNA") {
             phiAngleDB[[data_all[i,1]]] = 90
@@ -325,9 +327,22 @@ if ("DNA" %in% data_all[,5]) {
                 rownames(bfactor)[nrow(bfactor)] = data_all[i,1]
             }
         }
+        else if (data_all[i,5]=="RNA") {
+            phiAngleDB[[data_all[i,1]]] = 90
+            if (data_all[i,1] %in% rownames(rsa) == FALSE) {
+                rsa = rbind(rsa,c(0,0))
+                rownames(rsa)[nrow(rsa)] = data_all[i,1]
+            }
+            if (data_all[i,1] %in% rownames(secStructure) == FALSE) {
+                secStructure = rbind(secStructure,c(data_all[i,1],"RNA",360))
+            }
+            if (data_all[i,1] %in% rownames(bfactor) == FALSE) {
+                bfactor = rbind(bfactor,1)
+                rownames(bfactor)[nrow(bfactor)] = data_all[i,1]
+            }
+        }
     }
 }
-
 
 #Betweenness
 node_betweenness = betweenness(influencenet,weights=influencenet$weight,directed=directed)
@@ -535,8 +550,11 @@ secondOrder_node_intermodular_degree_stride = secondOrder_node_intermodular_degr
 secondOrder_node_intermodular_degree_sidechain_stride = secondOrder_node_intermodular_degree_sidechain
 
 ### Create final dataset
+print(nodes)
 nodes = nodes[nodes!="DNA1000A"]
+nodes = nodes[nodes!="RNA1000A"]
 nodes = nodes[nodes %in% c("DA","DG","DC","DT") == FALSE]
+nodes = nodes[nodes %in% c("G","C","A","U") == FALSE]
 
 ### Remove ligand amino acids from final dataset
 ligands = sub("-","",liganddat)
