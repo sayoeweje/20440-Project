@@ -23,7 +23,7 @@ model = structure[0] # Get structural elements of pdb
 protein = model["A"] # Selects Chain A in pdb file (Cas 9 protein)
 
 NetworkScores = {}
-with open("FinalSum_4cmp") as file:
+with open("FinalSum_4cmp_NoNodeEdgeBetweenness") as file:
     for line in file:
  
         (key, value) = line.split()

@@ -23,7 +23,7 @@ model = structure[0] # Get structural elements of pdb
 protein = model["A"] # Selects Chain A in pdb file (Cas 9 protein)
 
 NetworkScores = {}
-with open("FinalSum_Cas9RNP_v2") as file:
+with open("FinalSum_Cas9RNP") as file:
     for line in file:
  
         (key, value) = line.split()
@@ -71,11 +71,11 @@ node_size_array = list(node_size_dic.values())
 
 g = nx.draw_networkx(graph, pos, node_size = node_size_array,
                      node_color = node_colors_array, with_labels = False, 
-                                    cmap = plt.cm.seismic)
+                                    cmap = plt.cm.coolwarm)
 
 norm = mpl.colors.Normalize(vmin=min(list(NetworkScores.values())),vmax=max(list(NetworkScores.values())))
 
-cbar = fig.colorbar(cm.ScalarMappable(norm=norm, cmap=plt.cm.seismic), ax=ax, 
+cbar = fig.colorbar(cm.ScalarMappable(norm=norm, cmap=plt.cm.coolwarm), ax=ax, 
              orientation='horizontal', location='bottom', pad=0)
 
 cbar.ax.tick_params(labelsize=20)
