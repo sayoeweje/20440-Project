@@ -76,6 +76,9 @@ missing = which(allAcids%in%acidsMultimer == FALSE)
 LigandMULTIMERCENTROIDSC_MIN[missing] = dataZ[allAcids[which(allAcids%in%acidsMultimer == FALSE)],"LigandCENTROIDSC"]
 names(LigandMULTIMERCENTROIDSC_MIN)[missing] = allAcids[which(allAcids%in%acidsMultimer == FALSE)]
 LigandMULTIMERCENTROIDSC_MIN[is.na(LigandMULTIMERCENTROIDSC_MIN)] = 0
+print(SecondOrderIntermodularDegree_AVERAGE)
+print(NodeEdgeBetweennessSTRIDE_sidechain_MAX)
+print(LigandMULTIMERCENTROIDSC_MIN)
 
 #RSA
 RSA_ALL = c(data1[,"RSA"],data2Multimer[,"RSA"])

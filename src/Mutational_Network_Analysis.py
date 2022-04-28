@@ -36,7 +36,7 @@ aa_domains_mutability = aa_domains_mutability.dropna()
 
 aa_domains_mutability.to_excel('AminoAcids_Domains_Mutability.xlsx')
 
-with open('FinalSum') as csv_file:
+with open('FinalSum_4cmp') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter='\t')
     aa_network_scores = pd.DataFrame(csv_reader, columns=['AA Position','Network Score'])
 
