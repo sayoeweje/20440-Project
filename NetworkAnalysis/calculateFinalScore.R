@@ -82,7 +82,7 @@ RSA_ALL = c(data1[,"RSA"],data2Multimer[,"RSA"])
 RSA_MIN = tapply(RSA_ALL,as.factor(c(acidsMonomer,acidsMultimer)),min,na.rm=TRUE)
 RSA_MIN = RSA_MIN[allAcids]
 
-y = NodeEdgeBetweennessSTRIDE_sidechain_MAX #SecondOrderIntermodularDegree_AVERAGE+NodeEdgeBetweennessSTRIDE_sidechain_MAX-LigandMULTIMERCENTROIDSC_MIN
+y = SecondOrderIntermodularDegree_AVERAGE+NodeEdgeBetweennessSTRIDE_sidechain_MAX-LigandMULTIMERCENTROIDSC_MIN
 
 out=cbind(names(y),y)
 write.table(out,file="FinalSum",sep="\t",quote=FALSE,row.names=FALSE,col.names=FALSE)
