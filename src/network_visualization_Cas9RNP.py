@@ -15,7 +15,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.patches as mpatches
 
 parser = PDBParser() # Initiates PDBParser object to read .pdb file
-structure_id = "Cas9RNP"
+structure_id = "Cas9RNP_ResidueLigandProximity"
 filename = "4oo8_Cas9RNP.pdb" # PDB file containing Cas9 + sgRNA, target DNA crystal structure
 structure = parser.get_structure(structure_id, filename)
 
@@ -23,7 +23,7 @@ model = structure[0] # Get structural elements of pdb
 protein = model["A"] # Selects Chain A in pdb file (Cas 9 protein)
 
 NetworkScores = {}
-with open("FinalSum_Cas9RNP") as file:
+with open("FinalSum_Cas9RNP_LigandOnly") as file:
     for line in file:
  
         (key, value) = line.split()
